@@ -1,6 +1,6 @@
-package com.anhlt.maddiscover.Services;
+package com.anhlt.maddiscover.services;
 
-import com.anhlt.maddiscover.Entities.Event;
+import com.anhlt.maddiscover.entities.Event;
 
 /**
  * Created by anhlt on 2/19/16.

@@ -1,4 +1,4 @@
-package com.anhlt.maddiscover.Services;
+package com.anhlt.maddiscover.services;
 
 /**
  * Created by anhlt on 2/19/16.

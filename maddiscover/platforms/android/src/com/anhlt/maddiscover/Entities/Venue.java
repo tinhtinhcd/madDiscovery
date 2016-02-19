@@ -1,4 +1,4 @@
-package com.anhlt.maddiscover.Entities;
+package com.anhlt.maddiscover.entities;
 
 /**
  * Created by anhlt on 2/19/16.

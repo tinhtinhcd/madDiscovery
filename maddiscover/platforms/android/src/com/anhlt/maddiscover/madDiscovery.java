@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.anhlt.maddiscover.fragment.ListEvent;
+import com.anhlt.maddiscover.fragments.ListEvent;
 /**
  * Created by anhlt on 2/19/16.
  */

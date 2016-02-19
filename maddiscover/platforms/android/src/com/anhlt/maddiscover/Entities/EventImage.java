@@ -1,4 +1,4 @@
-package com.anhlt.maddiscover.Entities;
+package com.anhlt.maddiscover.entities;
 
 /**
  * Created by anhlt on 2/19/16.
@@ -6,23 +6,13 @@ package com.anhlt.maddiscover.Entities;
 public class EventImage {
 
     private long id;
-    private long eventId;
     private String url;
+    private String fileName;
 
-    public long getId() {
-        return id;
-    }
+    public long getId() {return id;}
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(long eventId) {
-        this.eventId = eventId;
     }
 
     public String getUrl() {
@@ -32,4 +22,8 @@ public class EventImage {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String getFileName() {return fileName;}
+
+    public void setFileName(String fileName) {this.fileName = fileName;}
 }

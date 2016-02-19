@@ -1,4 +1,4 @@
-package com.anhlt.maddiscover.Entities;
+package com.anhlt.maddiscover.entities;
 
 import java.util.Date;
 /**

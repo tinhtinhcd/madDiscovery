@@ -11,10 +11,23 @@ import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
 public class Reports extends BaseTable {
 
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(SQLStatement.create_table_reports);
+        pSQLiteDatabase.execSQL(createStatement());
     }
 
     public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
+    }
+
+    protected static String createStatement(){
+        StringBuilder createTable = new StringBuilder();
+        createTable.append("Create Table `reports` (`");
+        createTable.append(COLUMN_NAME_ID);
+        createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        createTable.append("`event_id` BIGINT NOT NULL, ");
+        createTable.append("`create_date` DATETIME, ");
+        createTable.append("`title` VARCHAR(255), ");
+        createTable.append("`details` VARCHAR(255) ");
+        createTable.append(");");
+        return createTable.toString();
     }
 }
