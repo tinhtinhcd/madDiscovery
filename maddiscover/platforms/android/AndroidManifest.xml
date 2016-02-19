@@ -6,7 +6,7 @@
     android:versionName="0.0.1" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="19"
         android:targetSdkVersion="23" />
 
     <supports-screens
@@ -33,11 +33,12 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/activity_name"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
             android:windowSoftInputMode="adjustResize" >
 
         </activity>
-        <activity android:name=".madDiscovery" >
+        <activity android:name=".madDiscovery"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter android:label="@string/launcher_name" >
                 <action android:name="android.intent.action.MAIN" />
 

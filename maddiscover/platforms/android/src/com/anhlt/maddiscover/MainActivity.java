@@ -21,7 +21,10 @@ package com.anhlt.maddiscover;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
-
+/**
+ * Created by anhlt on 2/17/16.
+ * this is default activity created by cordova and we don't use this
+ */
 public class MainActivity extends CordovaActivity
 {
     @Override
