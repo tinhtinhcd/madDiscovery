@@ -10,6 +10,12 @@ import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
  */
 public class Reports extends BaseTable {
 
+    public static final String id = COLUMN_NAME_ID;
+    public static final String eventId = "event_id";
+    public static final String createDate = "create_date";
+    public static final String title = "title";
+    public static final String details = "details";
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
     }

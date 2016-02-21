@@ -6,6 +6,7 @@
     <string-array name="planets_array">
         <item>Event</item>
         <item>Venue</item>
+        <item>Organizers</item>
     </string-array>
     <string name="drawer_open"> </string>
     <string name="drawer_close">  </string>

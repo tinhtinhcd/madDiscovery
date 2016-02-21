@@ -8,7 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Events extends BaseTable{
 
+    public static final String id = COLUMN_NAME_ID;
+    public static final String venue_id = "venue_id";
+    public static final String name = "name";
+    public static final String createDate = "create_date";
+    public static final String startDate = "start_date";
+    public static final String organizer = "organizer_id";
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        TABLE_NAME = "events";
         pSQLiteDatabase.execSQL(createStatement());
     }
 
@@ -18,7 +26,7 @@ public class Events extends BaseTable{
 
     protected static String createStatement(){
         StringBuilder createTable = new StringBuilder();
-        createTable.append("Create Table `events` (`");
+        createTable.append("Create Table `"+TABLE_NAME+"` (`");
         createTable.append(COLUMN_NAME_ID);
         createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         createTable.append("`venue_id` BIGINT NOT NULL, ");

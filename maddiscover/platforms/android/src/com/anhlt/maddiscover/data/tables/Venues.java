@@ -10,6 +10,13 @@ import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
  */
 public class Venues extends BaseTable{
 
+    public static final String id = COLUMN_NAME_ID;
+    public static final String name = "name";
+    public static final String address = "address";
+    public static final String latitude = "latitude";
+    public static final String longitude = "longitude";
+    public static final String postalCode = "postal_code";
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
     }

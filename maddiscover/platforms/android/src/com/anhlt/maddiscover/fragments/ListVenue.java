@@ -18,7 +18,7 @@ public class ListVenue extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_event, menu);
+        inflater.inflate(R.menu.menu_venue, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

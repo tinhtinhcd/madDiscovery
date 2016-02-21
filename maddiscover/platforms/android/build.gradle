@@ -174,8 +174,8 @@ android {
       abortOnError false;
     }
 
-    compileSdkVersion cdvCompileSdkVersion
-    buildToolsVersion cdvBuildToolsVersion
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
 
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
         productFlavors {

@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class EventImages extends BaseTable {
 
+    public static final String id = COLUMN_NAME_ID;
+    public static final String url = "url";
+    public static final String fileName = "file_name";
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
     }

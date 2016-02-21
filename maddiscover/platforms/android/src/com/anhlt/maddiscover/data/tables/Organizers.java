@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Organizers extends BaseTable{
 
+    public static final String id = COLUMN_NAME_ID;
+    public static final String name = "name";
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
     }
