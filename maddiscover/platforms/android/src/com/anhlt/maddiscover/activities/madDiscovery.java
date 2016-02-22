@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.anhlt.maddiscover.R;
@@ -191,9 +192,13 @@ public class madDiscovery extends AppCompatActivity {
         position = 2;
     }
 
-    private void commitFragment(Fragment fragment){
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+    protected void commitFragment(Fragment fragment){
+       try {
+           FragmentManager fragmentManager = getFragmentManager();
+           fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+       }catch (Exception ex){
+            System.out.print(ex.toString());
+       }
     }
 
     @Override
@@ -211,6 +216,11 @@ public class madDiscovery extends AppCompatActivity {
                 return true;
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    protected void setSupView(View view){
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        frameLayout.addView(view);
     }
 
 }

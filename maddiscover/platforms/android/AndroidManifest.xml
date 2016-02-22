@@ -40,12 +40,23 @@
             android:name=".activities.madDiscovery"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         </activity>
-        <activity android:name=".activities.InitialApp"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name=".activities.InitialApp"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter android:label="@string/launcher_name" >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.CreateEvent"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+        <activity android:name=".activities.CreateVenue"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
+        <activity android:name=".activities.CreateOrganizer"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
     </application>
 

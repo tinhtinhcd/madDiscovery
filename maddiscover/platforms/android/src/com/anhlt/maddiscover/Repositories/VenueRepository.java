@@ -32,7 +32,7 @@ public class VenueRepository extends BasicRepository{
 
     public Venue findByName(String name){
         String[] venueName = {name};
-        Cursor cursor = databaseHelper.select(SQLStatement.findEventByName(name), venueName, null);
+        Cursor cursor = databaseHelper.select(SQLStatement.find(Venues.TABLE_NAME, Venues.name), venueName, null);
         Venue venue = new Venue();
         while (cursor.moveToNext()){
             getObjectFromCursor(cursor, venue);

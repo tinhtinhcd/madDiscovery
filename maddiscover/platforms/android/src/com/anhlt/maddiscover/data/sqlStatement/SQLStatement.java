@@ -17,7 +17,7 @@ public class SQLStatement {
         return getAll(table) + " WHERE id = ?1";
     }
 
-    public static String findEventByName(String name){
-        return getAll(Events.TABLE_NAME) + " WHERE "+Events.name+" = '?1'";
+    public static String find(String table, String columnCondition){
+        return getAll(table) + " WHERE "+columnCondition+" = '?1'";
     }
 }

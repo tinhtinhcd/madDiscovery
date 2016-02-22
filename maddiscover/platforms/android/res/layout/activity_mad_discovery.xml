@@ -5,11 +5,13 @@
     android:id="@+id/DrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BDBDBD"
+    android:background="#2E2E2E"
+
     android:elevation="7dp">
 
     <FrameLayout
         android:id="@+id/content_frame"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

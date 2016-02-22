@@ -1,7 +1,11 @@
 package com.anhlt.maddiscover.services;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 
+import com.anhlt.maddiscover.activities.CreateEvent;
+import com.anhlt.maddiscover.activities.MainActivity;
 import com.anhlt.maddiscover.entities.Event;
 import com.anhlt.maddiscover.repositories.EventRepository;
 
@@ -23,7 +27,9 @@ public class EventService {
     }
 
     public void createEvent(){
-//        eventRepository.create(event);
+        Intent intent = new Intent(context, CreateEvent.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public void editEvent(){

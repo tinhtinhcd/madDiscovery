@@ -37,7 +37,7 @@ public class EventRepository extends BasicRepository{
     public Event findByName(String name){
 
         String[] eventName = {name};
-        Cursor cursor = databaseHelper.select(SQLStatement.findEventByName(name), eventName, null);
+        Cursor cursor = databaseHelper.select(SQLStatement.find(Events.TABLE_NAME, Events.name), eventName, null);
         Event event = new Event();
 
         while (cursor.moveToNext()){
