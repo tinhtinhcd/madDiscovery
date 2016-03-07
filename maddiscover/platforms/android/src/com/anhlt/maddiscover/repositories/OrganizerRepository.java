@@ -5,6 +5,8 @@ import android.database.Cursor;
 
 import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
 import com.anhlt.maddiscover.data.tables.Organizers;
+import com.anhlt.maddiscover.data.tables.Venues;
+import com.anhlt.maddiscover.entities.Event;
 import com.anhlt.maddiscover.entities.Organizer;
 
 import java.util.ArrayList;
@@ -23,11 +25,15 @@ public class OrganizerRepository extends BasicRepository{
 
         Cursor cursor = databaseHelper.select(SQLStatement.getAll(Organizers.TABLE_NAME), null, null);
         List<Organizer> organizers = new ArrayList<Organizer>();
-        Organizer organizer = new Organizer();
+        Organizer organizer;
 
-        while (cursor.moveToNext()){
-            getObjectFromCursor(cursor, organizer);
-            organizers.add(organizer);
+        if (cursor.moveToFirst()){
+            do{
+                organizer = new Organizer();
+                getObjectFromCursor(cursor, organizer);
+                organizers.add(organizer);
+            }
+            while (cursor.moveToNext());
         }
 
         return organizers;
@@ -68,8 +74,17 @@ public class OrganizerRepository extends BasicRepository{
 
     @Override
     protected void removeRelationship(String[] orgs){
-        //delete report
-        //delete image
-        //remove relationship whit organizer
+
+    }
+
+    public List<String> getListOrganizerName(){
+        List<String> orgNames = new ArrayList<String>();
+        Cursor cursor = databaseHelper.select(SQLStatement.getColumns(Organizers.TABLE_NAME, Organizers.name, null),null,null);
+        if(cursor.moveToFirst()){
+            do{
+                orgNames.add(cursor.getString(0));
+            }while (cursor.moveToNext());
+        }
+        return orgNames;
     }
 }

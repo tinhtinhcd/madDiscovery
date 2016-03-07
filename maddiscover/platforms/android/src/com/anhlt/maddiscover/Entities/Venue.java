@@ -5,7 +5,7 @@ package com.anhlt.maddiscover.entities;
  */
 public class Venue{
 
-    private long id;
+    private Long id;
     private String name;
     private String address;
     private double latitude;

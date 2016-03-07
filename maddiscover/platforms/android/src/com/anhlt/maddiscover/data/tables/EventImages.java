@@ -24,7 +24,7 @@ public class EventImages extends BaseTable {
         StringBuilder createTable = new StringBuilder();
         createTable.append("Create Table `event_image` (`");
         createTable.append(COLUMN_NAME_ID);
-        createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        createTable.append("` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         createTable.append("`url` VARCHAR(255), ");
         createTable.append("`file_name` VARCHAR(255) ");
         createTable.append(");");

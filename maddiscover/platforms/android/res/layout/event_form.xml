@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#2E2E2E"
     android:orientation="vertical">
 
     <TextView
@@ -27,8 +26,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/event_name"
-        android:background="@android:drawable/editbox_dropdown_dark_frame"/>
+        android:id="@+id/event_name" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,8 +38,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:id="@+id/start_date"  />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Venue:"
+        android:id="@+id/ven"
+        android:allowUndo="false" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="location"
+        android:id="@+id/venue" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,8 +67,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:background="@android:drawable/editbox_dropdown_dark_frame"
-        android:hint="Organizer"
+        android:hint="organizer"
         android:id="@+id/organizer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Remark:"
+        android:id="@+id/des"
+        android:allowUndo="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:id="@+id/remark" />
 
 </LinearLayout>

@@ -5,8 +5,6 @@
     android:id="@+id/DrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2E2E2E"
-
     android:elevation="7dp">
 
     <FrameLayout

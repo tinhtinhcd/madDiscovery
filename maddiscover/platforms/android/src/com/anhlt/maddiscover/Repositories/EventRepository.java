@@ -24,20 +24,35 @@ public class EventRepository extends BasicRepository{
 
         Cursor cursor = databaseHelper.select(SQLStatement.getAll(Events.TABLE_NAME), null, null);
         List<Event> events = new ArrayList<Event>();
-        Event event = new Event();
+        Event event;
 
-        while (cursor.moveToNext()){
-            getObjectFromCursor(cursor, event);
-            events.add(event);
+        if (cursor.moveToFirst()){
+            do{
+                event = new Event();
+                getObjectFromCursor(cursor, event);
+                events.add(event);
+            }
+            while (cursor.moveToNext());
         }
 
         return events;
     }
 
+    public List<String> getListEventName(){
+        List<String> eventNames = new ArrayList<String>();
+        Cursor cursor = databaseHelper.select(SQLStatement.getColumns(Events.TABLE_NAME, Events.eventName, null),null,null);
+        if(cursor.moveToFirst()){
+            do{
+                eventNames.add(cursor.getString(0));
+            }while (cursor.moveToNext());
+        }
+        return eventNames;
+    }
+
     public Event findByName(String name){
 
         String[] eventName = {name};
-        Cursor cursor = databaseHelper.select(SQLStatement.find(Events.TABLE_NAME, Events.name), eventName, null);
+        Cursor cursor = databaseHelper.select(SQLStatement.find(Events.TABLE_NAME, Events.eventName), eventName, null);
         Event event = new Event();
 
         while (cursor.moveToNext()){
@@ -69,9 +84,10 @@ public class EventRepository extends BasicRepository{
 
     @Override
     protected void removeRelationship(String[] eventIds){
-        //delete report
-        //delete image
-        //remove relationship whit organizer
+
     }
 
+    public boolean validEvent(String eventName, String venueName, String organizerName){
+        return !databaseHelper.select(SQLStatement.validEvent(eventName,venueName,organizerName),null,null).moveToFirst();
+    }
 }

@@ -6,7 +6,7 @@ import java.util.Date;
  */
 public class Report {
 
-    private long id;
+    private Long id;
     private long eventId;
     private Date createDate;
     private String title;

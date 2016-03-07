@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
+import com.anhlt.maddiscover.data.tables.Events;
 import com.anhlt.maddiscover.data.tables.Venues;
 import com.anhlt.maddiscover.entities.Venue;
 
@@ -19,41 +20,51 @@ public class VenueRepository extends BasicRepository{
         super(context);
     }
 
-    public List<Venue> getAllVenues(){
+    public List<Venue> getAllVenue(){
+
         Cursor cursor = databaseHelper.select(SQLStatement.getAll(Venues.TABLE_NAME), null, null);
         List<Venue> venues = new ArrayList<Venue>();
-        while (cursor.moveToNext()){
-            Venue venue = new Venue();
-            getObjectFromCursor(cursor, venue);
-            venues.add(venue);
+        Venue venue;
+
+        if (cursor.moveToFirst()){
+            do{
+                venue = new Venue();
+                getObjectFromCursor(cursor, venue);
+                venues.add(venue);
+            }
+            while (cursor.moveToNext());
         }
+
         return venues;
     }
 
     public Venue findByName(String name){
-        String[] venueName = {name};
-        Cursor cursor = databaseHelper.select(SQLStatement.find(Venues.TABLE_NAME, Venues.name), venueName, null);
-        Venue venue = new Venue();
+
+        String[] vName = {name};
+        Cursor cursor = databaseHelper.select(SQLStatement.find(Venues.TABLE_NAME, Venues.name), vName, null);
+        Venue vn = new Venue();
+
         while (cursor.moveToNext()){
-            getObjectFromCursor(cursor, venue);
+            getObjectFromCursor(cursor, vn);
         }
-        return venue;
+
+        return vn;
     }
 
-    public Venue findById(long venueId){
-        return (Venue)findById(Venues.TABLE_NAME,new Venue(),venueId);
+    public Venue findById(long id){
+        return (Venue)findById(Venues.TABLE_NAME,new Venue(),id);
     }
 
-    public void create(Venue venue){
-        create(Venues.TABLE_NAME, venue);
+    public void create(Venue org) {
+        create(Venues.TABLE_NAME, org);
     }
 
-    public void updateVenue(Venue venue){
-       update(Venues.TABLE_NAME, venue);
+    public void update(Venue org){
+        update(Venues.TABLE_NAME, org);
     }
 
-    public void delete(long venueId){
-        delete(Venues.TABLE_NAME, venueId);
+    public void delete(long id){
+        delete(Venues.TABLE_NAME, id);
     }
 
     public void deletes(String[] ids){
@@ -61,8 +72,18 @@ public class VenueRepository extends BasicRepository{
     }
 
     @Override
-    protected void removeRelationship(String[] eventIds) {
+    protected void removeRelationship(String[] vns){
 
     }
 
+    public List<String> getListVenueName(){
+        List<String> venueNames = new ArrayList<String>();
+        Cursor cursor = databaseHelper.select(SQLStatement.getColumns(Venues.TABLE_NAME, Venues.name, null),null,null);
+        if(cursor.moveToFirst()){
+            do{
+                venueNames.add(cursor.getString(0));
+            }while (cursor.moveToNext());
+        }
+        return venueNames;
+    }
 }

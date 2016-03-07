@@ -10,6 +10,11 @@ public class Organizers extends BaseTable{
 
     public static final String id = COLUMN_NAME_ID;
     public static final String name = "name";
+    public static final String mobile = "mobile";
+    public static final String email = "email";
+    public static final String address = "address";
+    public static final String about = "about";
+    public static String TABLE_NAME = "organizers";
 
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
@@ -21,10 +26,14 @@ public class Organizers extends BaseTable{
 
     protected static String createStatement(){
         StringBuilder createTable = new StringBuilder();
-        createTable.append("Create Table `organizers` (`");
+        createTable.append("Create Table `"+TABLE_NAME+"` (`");
         createTable.append(COLUMN_NAME_ID);
-        createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        createTable.append("`name` VARCHAR(255) ");
+        createTable.append("` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        createTable.append("`name` VARCHAR(255), ");
+        createTable.append("`mobile` VARCHAR(255), ");
+        createTable.append("`email` VARCHAR(255), ");
+        createTable.append("`address` VARCHAR(255), ");
+        createTable.append("`about` VARCHAR(10000) ");
         createTable.append(");");
         return createTable.toString();
     }

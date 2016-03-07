@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.data.tables.EventImages;
 import com.anhlt.maddiscover.data.tables.Events;
+import com.anhlt.maddiscover.data.tables.Organizers;
 import com.anhlt.maddiscover.data.tables.Reports;
 import com.anhlt.maddiscover.data.tables.Venues;
 
@@ -15,7 +16,7 @@ import com.anhlt.maddiscover.data.tables.Venues;
 
 class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 5;
 
     private Context context;
 
@@ -30,6 +31,7 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
         Venues.onCreate(context, sqLiteDatabase);
         Reports.onCreate(context, sqLiteDatabase);
         EventImages.onCreate(context, sqLiteDatabase);
+        Organizers.onCreate(context, sqLiteDatabase);
     }
 
     @Override
@@ -38,5 +40,6 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
         Venues.onUpgrade(context, sqlLiteDatabase, oldVersion, newVersion);
         Reports.onUpgrade(context, sqlLiteDatabase, oldVersion, newVersion);
         EventImages.onUpgrade(context, sqlLiteDatabase, oldVersion, newVersion);
+        Organizers.onUpgrade(context, sqlLiteDatabase, oldVersion, newVersion);
     }
 }

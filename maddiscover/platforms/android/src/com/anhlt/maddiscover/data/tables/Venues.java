@@ -15,7 +15,8 @@ public class Venues extends BaseTable{
     public static final String address = "address";
     public static final String latitude = "latitude";
     public static final String longitude = "longitude";
-    public static final String postalCode = "postal_code";
+    public static final String postal_code = "postal_code";
+    public static String TABLE_NAME = "venue";
 
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(createStatement());
@@ -29,7 +30,7 @@ public class Venues extends BaseTable{
         StringBuilder createTable = new StringBuilder();
         createTable.append("Create Table `venue` (`");
         createTable.append(COLUMN_NAME_ID);
-        createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        createTable.append("` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         createTable.append("`name` VARCHAR(255), ");
         createTable.append("`address` VARCHAR(255), ");
         createTable.append("`latitude` DOUBLE, ");

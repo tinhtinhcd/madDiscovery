@@ -1,15 +1,12 @@
 package com.anhlt.maddiscover.activities;
 
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 
 import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.data.DatabaseHelper;
 
-import java.util.concurrent.TimeUnit;
 import android.os.Handler;
 
 public class InitialApp extends AppCompatActivity {

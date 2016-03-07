@@ -9,14 +9,15 @@ import android.database.sqlite.SQLiteDatabase;
 public class Events extends BaseTable{
 
     public static final String id = COLUMN_NAME_ID;
-    public static final String venue_id = "venue_id";
-    public static final String name = "name";
-    public static final String createDate = "create_date";
-    public static final String startDate = "start_date";
-    public static final String organizer = "organizer_id";
+    public static final String venueId = "venueId";
+    public static final String eventName = "eventName";
+    public static final String createDate = "createDate";
+    public static final String startDate = "startDate";
+    public static final String organizer = "organizer";
+    public static final String remark = "remark";
+    public static String TABLE_NAME = "events";
 
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
-        TABLE_NAME = "events";
         pSQLiteDatabase.execSQL(createStatement());
     }
 
@@ -28,12 +29,13 @@ public class Events extends BaseTable{
         StringBuilder createTable = new StringBuilder();
         createTable.append("Create Table `"+TABLE_NAME+"` (`");
         createTable.append(COLUMN_NAME_ID);
-        createTable.append("` BIGINT NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        createTable.append("`venue_id` BIGINT NOT NULL, ");
-        createTable.append("`name` VARCHAR(255), ");
-        createTable.append("`create_date` DATETIME, ");
-        createTable.append("`start_date` DATETIME, ");
-        createTable.append("`organizer_id` BIGINT");
+        createTable.append("` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
+        createTable.append("`"+venueId+"` BIGINT, ");
+        createTable.append("`"+eventName+"` VARCHAR(255), ");
+        createTable.append("`"+createDate+"` DATETIME, ");
+        createTable.append("`"+startDate+"` DATETIME, ");
+        createTable.append("`"+organizer+"` BIGINT, ");
+        createTable.append("`"+remark+"` VARCHAR(255)");
         createTable.append(");");
         return createTable.toString();
     }

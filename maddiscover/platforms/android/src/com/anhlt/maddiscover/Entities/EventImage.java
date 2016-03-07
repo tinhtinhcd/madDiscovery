@@ -5,7 +5,7 @@ package com.anhlt.maddiscover.entities;
  */
 public class EventImage {
 
-    private long id;
+    private Long id;
     private String url;
     private String fileName;
 

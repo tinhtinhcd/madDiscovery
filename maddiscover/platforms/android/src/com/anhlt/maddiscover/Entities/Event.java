@@ -7,12 +7,13 @@ import java.util.Date;
  */
 public class Event {
 
-    private long id;
+    private Long id;
     private String eventName;
-    private long venueId;
+    private Long venueId;
     private Date createDate;
     private Date startDate;
-    private String organizer;
+    private Long organizer;
+    private String remark;
 
     public long getId() {
         return id;
@@ -54,11 +55,19 @@ public class Event {
         this.startDate = startDate;
     }
 
-    public String getOrganizer() {
+    public long getOrganizer() {
         return organizer;
     }
 
-    public void setOrganizer(String organizer) {
+    public void setOrganizer(long organizer) {
         this.organizer = organizer;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
