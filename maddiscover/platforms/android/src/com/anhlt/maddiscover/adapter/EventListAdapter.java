@@ -1,13 +1,16 @@
 package com.anhlt.maddiscover.adapter;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 
@@ -15,22 +18,28 @@ import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.entities.Event;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by anhlt on 2/26/16.
  */
 
-public class EventListAdapter extends BaseAdapter implements Filterable {
+public class EventListAdapter extends BaseAdapter implements Filterable, CompoundButton.OnCheckedChangeListener {
 
     Context context;
     List<Event> events;
     List<Event> fixEventList;
+    public SparseBooleanArray mCheckStates;
+    public static List<Long> checkedEvent = new ArrayList<Long>();
+    CheckBox eventItem;
 
     public EventListAdapter(Context context, List<Event> events) {
         this.context = context;
         fixEventList = events;
         this.events = events;
+        mCheckStates = new SparseBooleanArray(fixEventList.size());
     }
 
     @Override
@@ -52,13 +61,15 @@ public class EventListAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            LayoutInflater mInflater = (LayoutInflater) context
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_event_item, null);
         }
 
-        CheckBox eventItem = (CheckBox) convertView.findViewById(R.id.event_item);
+        eventItem = (CheckBox) convertView.findViewById(R.id.checkbox);
         eventItem.setText(events.get(position).getEventName());
+        eventItem.setTag(position);
+        eventItem.setOnCheckedChangeListener(this);
+
         return convertView;
 
     }
@@ -104,6 +115,34 @@ public class EventListAdapter extends BaseAdapter implements Filterable {
         };
 
         return filter;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        if(isChecked){
+            mCheckStates.put((Integer) buttonView.getTag(), isChecked);
+            checkedEvent.add(events.get((Integer)buttonView.getTag()).getId());
+        } else{
+            mCheckStates.delete((Integer) buttonView.getTag());
+            checkedEvent.remove(events.get((Integer)buttonView.getTag()).getId());
+        }
+
+    }
+
+    public void removeDeletedItem(){
+        List<Event> removeEvent = new ArrayList<Event>();
+        for (int i =0 ; i < events.size() ; i++ ) {
+            Event event = events.get(i);
+            if (checkedEvent.contains(event.getId())){
+                removeEvent.add(event);
+            }
+        }
+        mCheckStates.clear();
+        checkedEvent.clear();
+        events.removeAll(removeEvent);
+        fixEventList.removeAll(removeEvent);
+        notifyDataSetChanged();
     }
 }
 

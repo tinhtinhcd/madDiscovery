@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,6 +56,7 @@ public class ListEvent extends ListFragment implements OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -63,17 +65,21 @@ public class ListEvent extends ListFragment implements OnItemClickListener {
         listFilter();
     }
 
-    private void listFilter(){
+    private void listFilter() {
 
         EditText filter = (EditText) getView().findViewById(R.id.filter);
         filter.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {}
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
             }
         });
     }
+
 }

@@ -2,11 +2,13 @@ package com.anhlt.maddiscover.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 
@@ -21,16 +23,18 @@ import java.util.List;
  * Created by anhlt on 2/26/16.
  */
 
-public class OrganizerListAdapter extends BaseAdapter implements Filterable {
+public class OrganizerListAdapter extends BaseAdapter implements Filterable, CompoundButton.OnCheckedChangeListener {
 
     Context context;
     List<Organizer> organizers;
     List<Organizer> fixOrganizers;
+    SparseBooleanArray mCheckStates;
 
     public OrganizerListAdapter(Context context, List<Organizer> organizers) {
         this.context = context;
         this.fixOrganizers = organizers;
         this.organizers = organizers;
+        mCheckStates = new SparseBooleanArray(fixOrganizers.size());
     }
 
     @Override
@@ -104,6 +108,11 @@ public class OrganizerListAdapter extends BaseAdapter implements Filterable {
         };
 
         return filter;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        mCheckStates.put((Integer) buttonView.getTag(), isChecked);
     }
 }
 

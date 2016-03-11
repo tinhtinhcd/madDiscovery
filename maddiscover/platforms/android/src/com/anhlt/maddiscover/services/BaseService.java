@@ -103,7 +103,7 @@ public class BaseService {
                 eventService.createEventForm(fm,context);
                 return true;
             case R.id.delete_event:
-                eventService.deleteEvent();
+                eventService.deleteEvent(fm,fragment);
                 return true;
             case R.id.edit_event:
                 eventService.editEvent();

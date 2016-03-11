@@ -76,6 +76,8 @@ public class CreateEvent extends BaseFragment{
             saveNewEvent();
         }if (item.getItemId()  == R.id.save_more){
             saveNewEvent();
+        }if (item.getItemId() == R.id.cancel){
+
         }
         return super.onOptionsItemSelected(item);
     }
