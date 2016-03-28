@@ -43,7 +43,7 @@ public class SQLStatement {
         return query.toString();
     }
 
-    public static String validEvent(String eventName, String venueName, String organizerName){
+    public static String validEvent(String eventName, String venueName, String organizerName, Long eventId){
         StringBuilder builder = new StringBuilder();
 
         builder.append("SELECT * FROM ");
@@ -55,11 +55,37 @@ public class SQLStatement {
         builder.append(" as o on o.id = e.organizer");
         builder.append(" where e.eventName = '");
         builder.append(eventName);
-        builder.append("' and v.name = '");
-        builder.append(venueName);
-        builder.append("' and o.name = '");
-        builder.append(organizerName);
-        builder.append("'");
+        builder.append("' ");
+
+        if(venueName!=null){
+            builder.append(" and v.name = '");
+            builder.append(venueName);
+            builder.append("' ");
+        }
+
+        if(organizerName!=null){
+            builder.append(" and o.name = '");
+            builder.append(venueName);
+            builder.append("' ");
+        }
+
+        if(eventId != null){
+            builder.append(" and e.id != ");
+            builder.append(eventId);
+            builder.append(" ");
+        }
+
+        return builder.toString();
+    }
+
+    public static String getReport(Long eventId){
+        StringBuilder builder = new StringBuilder();
+
+        if(eventId!=null){
+            builder.append("Select * From reports Where eventId = ");
+            builder.append(eventId);
+            builder.append(" order by createDate Desc");
+        }
 
         return builder.toString();
     }

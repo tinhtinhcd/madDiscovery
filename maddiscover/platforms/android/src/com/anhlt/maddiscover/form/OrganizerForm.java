@@ -3,9 +3,7 @@ package com.anhlt.maddiscover.form;
 import android.content.Context;
 import android.content.Intent;
 
-import com.anhlt.maddiscover.activities.CreateEvent;
-import com.anhlt.maddiscover.activities.CreateOrganizer;
-import com.anhlt.maddiscover.repositories.EventRepository;
+import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
 import com.anhlt.maddiscover.repositories.OrganizerRepository;
 
 /**

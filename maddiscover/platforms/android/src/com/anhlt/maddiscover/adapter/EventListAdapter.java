@@ -13,10 +13,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.TextView;
 
 import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.entities.Event;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +31,12 @@ import java.util.Map;
 public class EventListAdapter extends BaseAdapter implements Filterable, CompoundButton.OnCheckedChangeListener {
 
     Context context;
-    List<Event> events;
+    public static List<Event> events;
     List<Event> fixEventList;
     public SparseBooleanArray mCheckStates;
     public static List<Long> checkedEvent = new ArrayList<Long>();
     CheckBox eventItem;
+    TextView startDate;
 
     public EventListAdapter(Context context, List<Event> events) {
         this.context = context;
@@ -70,8 +73,12 @@ public class EventListAdapter extends BaseAdapter implements Filterable, Compoun
         eventItem.setTag(position);
         eventItem.setOnCheckedChangeListener(this);
 
-        return convertView;
+        startDate = (TextView) convertView.findViewById(R.id.list_event_start_date);
+        SimpleDateFormat format = new SimpleDateFormat("MMM-dd-yyyy");
+        String date = String.valueOf(events.get(position).getStartDate());
+        startDate.setText(!date.equals("null")?format.format(events.get(position).getStartDate()):"N/A");
 
+        return convertView;
     }
 
     @Override

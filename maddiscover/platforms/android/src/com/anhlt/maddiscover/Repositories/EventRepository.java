@@ -87,7 +87,19 @@ public class EventRepository extends BasicRepository{
 
     }
 
-    public boolean validEvent(String eventName, String venueName, String organizerName){
-        return !databaseHelper.select(SQLStatement.validEvent(eventName,venueName,organizerName),null,null).moveToFirst();
+    public boolean validEvent(String eventName, String venueName, String organizerName, Long eventId){
+        return !databaseHelper.select(SQLStatement.validEvent(eventName,venueName,organizerName,eventId),null,null).moveToFirst();
+    }
+
+    public boolean validEventVenue(String eventName, String venueName, Long eventId){
+        return !databaseHelper.select(SQLStatement.validEvent(eventName,venueName,null,eventId),null,null).moveToFirst();
+    }
+
+    public boolean validEventOrganization(String eventName, String organizerName, Long eventId){
+        return !databaseHelper.select(SQLStatement.validEvent(eventName,null,organizerName,eventId),null,null).moveToFirst();
+    }
+
+    public boolean validEventName(String eventName, Long eventId){
+        return !databaseHelper.select(SQLStatement.validEvent(eventName,null,null,eventId),null,null).moveToFirst();
     }
 }

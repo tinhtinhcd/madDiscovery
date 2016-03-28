@@ -9,9 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.anhlt.maddiscover.R;
-import com.anhlt.maddiscover.fragments.ListEvent;
-import com.anhlt.maddiscover.fragments.ListOrganizer;
-import com.anhlt.maddiscover.fragments.ListVenue;
+import com.anhlt.maddiscover.fragments.event.ListEvent;
+import com.anhlt.maddiscover.fragments.organizer.ListOrganizer;
+import com.anhlt.maddiscover.fragments.venue.ListVenue;
 
 /**
  * Created by anhlt on 2/26/16.
@@ -106,7 +106,7 @@ public class BaseService {
                 eventService.deleteEvent(fm,fragment);
                 return true;
             case R.id.edit_event:
-                eventService.editEvent();
+//                eventService.editEvent(fm,fragment);
                 return true;
             case R.id.search_venue:
                 venueService.searchVenue();

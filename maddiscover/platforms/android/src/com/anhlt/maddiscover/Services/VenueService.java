@@ -3,8 +3,7 @@ package com.anhlt.maddiscover.services;
 import android.app.FragmentManager;
 import android.content.Context;
 
-import com.anhlt.maddiscover.activities.CreateOrganizer;
-import com.anhlt.maddiscover.activities.CreateVenue;
+import com.anhlt.maddiscover.fragments.venue.CreateVenue;
 import com.anhlt.maddiscover.entities.Venue;
 import com.anhlt.maddiscover.repositories.VenueRepository;
 

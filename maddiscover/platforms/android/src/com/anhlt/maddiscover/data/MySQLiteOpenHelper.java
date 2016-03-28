@@ -16,7 +16,7 @@ import com.anhlt.maddiscover.data.tables.Venues;
 
 class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     private Context context;
 

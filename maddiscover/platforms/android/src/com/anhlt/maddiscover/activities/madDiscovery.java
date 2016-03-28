@@ -52,7 +52,7 @@ public class madDiscovery extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        return service.itemSelected(item);
+        return getService().itemSelected(item);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -68,9 +68,13 @@ public class madDiscovery extends AppCompatActivity {
         fm = getFragmentManager();
         service = new BaseService(fm,getApplicationContext());
         setTitle(mPlanetTitles[position]);
-        service.selectItem(position);
+        getService().selectItem(position);
         mDrawerList.setItemChecked(position, true);
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private BaseService getService(){
+        return service!=null?service:new BaseService(fm,getApplicationContext());
     }
 
     @Override
@@ -94,7 +98,7 @@ public class madDiscovery extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        return service.menuActions(inflater,menu);
+        return getService().menuActions(inflater, menu);
     }
 
     private void setupDrawer(Bundle savedInstanceState){

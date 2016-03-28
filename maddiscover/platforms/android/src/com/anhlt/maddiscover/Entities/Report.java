@@ -10,7 +10,7 @@ public class Report {
     private long eventId;
     private Date createDate;
     private String title;
-    private String detail;
+    private String details;
 
     public long getId() {
         return id;
@@ -45,10 +45,10 @@ public class Report {
     }
 
     public String getDetail() {
-        return detail;
+        return details;
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.details = detail;
     }
 }

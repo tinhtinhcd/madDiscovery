@@ -3,12 +3,11 @@ package com.anhlt.maddiscover.repositories;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.anhlt.maddiscover.data.DatabaseHelper;
 import com.anhlt.maddiscover.data.sqlStatement.SQLStatement;
 import com.anhlt.maddiscover.data.tables.BaseTable;
-import com.anhlt.maddiscover.data.tables.Venues;
-import com.anhlt.maddiscover.entities.Venue;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -69,12 +68,12 @@ public class BasicRepository {
         try {
             for (Field field: object.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
-                Object value = (Object) field.get(object);
+                Object value = field.get(object);
                 if(value!=null)
                     values.put(field.getName(), value.toString());
             }
         }catch (Exception e){
-            System.console().printf("Error on save: " +e.getMessage());
+//            System.console().printf("Error on save: " +e.getMessage());
         }
 
         databaseHelper.insert(tableName, values);
@@ -96,20 +95,22 @@ public class BasicRepository {
 
     protected void update(String tableName, Object o){
 
-        String[] id = {String.valueOf(o.getClass().getDeclaredFields()[0])};
+        String[] id = new String[0];
+
         ContentValues values = new ContentValues();
-
-        for (Field field : o.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-
-            try {
-                if(o instanceof Long && Long.parseLong(o.toString()) >0)
-                    values.put(field.getName(), field.get(object).toString());
-                else if(o!=null)
-                    values.put(field.getName(), field.get(object).toString());
-            }catch (Exception ex){
-                ex.printStackTrace();
+        try {
+            for (Field field: o.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                Object value = field.get(o);
+                if(value!=null){
+                    values.put(field.getName(), value.toString());
+                }
+                if(field.getName().equalsIgnoreCase("id")) {
+                    id = new String[]{values.get("id").toString()};
+                }
             }
+        }catch (Exception e){
+            Log.e("",e.getMessage());
         }
 
         databaseHelper.update(tableName, values, columnId + " = ?", id);

@@ -49,13 +49,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CreateEvent"
+        <activity android:name=".fragments.event.CreateEvent"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
-        <activity android:name=".activities.CreateVenue"
+        <activity android:name=".fragments.venue.CreateVenue"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
-        <activity android:name=".activities.CreateOrganizer"
+        <activity android:name=".fragments.organizer.CreateOrganizer"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
     </application>

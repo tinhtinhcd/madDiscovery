@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Create new Event"
-        android:id="@+id/textView" />
+        android:id="@+id/create_edit_event" />
 
     <TextView
         android:layout_width="match_parent"
@@ -26,7 +26,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/event_name" />
+        android:id="@+id/event_name"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,10 +36,13 @@
         android:text="Start date :"
         android:id="@+id/startDate" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_height="wrap_content"
-        android:id="@+id/start_date"  />
+        android:id="@+id/start_date"
+        android:background="@android:drawable/divider_horizontal_dark"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,7 +57,8 @@
         android:layout_height="wrap_content"
         android:text=""
         android:hint="location"
-        android:id="@+id/venue" />
+        android:id="@+id/venue"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +73,8 @@
         android:layout_height="wrap_content"
         android:text=""
         android:hint="organizer"
-        android:id="@+id/organizer" />
+        android:id="@+id/organizer"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="2"
-        android:id="@+id/remark" />
+        android:id="@+id/remark"
+        android:padding="10dp" />
 
 </LinearLayout>

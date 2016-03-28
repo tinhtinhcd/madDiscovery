@@ -1,36 +1,53 @@
 package com.anhlt.maddiscover.form;
 
-import android.content.Context;
-import android.content.Intent;
-
-import com.anhlt.maddiscover.activities.CreateEvent;
-import com.anhlt.maddiscover.repositories.EventRepository;
-
 /**
  * Created by anhlt on 2/26/16.
  */
 public class EventForm {
 
-    Context context;
-    EventRepository eventRepository;
+    String eventName;
+    String startDate;
+    String venue;
+    String organizer;
+    String remark;
 
-    public EventForm(Context context) {
-        this.context = context;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void createEvent(){
-        Intent intent = new Intent(context, CreateEvent.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public void editEvent(){
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void deleteEvent(){
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public void searchEvent(){
+    public String getVenue() {
+        return venue;
     }
 
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

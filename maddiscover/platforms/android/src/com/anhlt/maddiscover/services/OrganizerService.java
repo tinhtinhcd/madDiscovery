@@ -3,7 +3,7 @@ package com.anhlt.maddiscover.services;
 import android.app.FragmentManager;
 import android.content.Context;
 
-import com.anhlt.maddiscover.activities.CreateOrganizer;
+import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
 import com.anhlt.maddiscover.entities.Organizer;
 import com.anhlt.maddiscover.repositories.OrganizerRepository;
 

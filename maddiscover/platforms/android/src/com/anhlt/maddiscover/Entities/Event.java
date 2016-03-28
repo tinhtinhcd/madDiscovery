@@ -1,5 +1,6 @@
 package com.anhlt.maddiscover.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class Event {
     private Long organizer;
     private String remark;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -31,7 +32,7 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public long getVenueId() {
+    public Long getVenueId() {
         return venueId;
     }
 
@@ -55,7 +56,7 @@ public class Event {
         this.startDate = startDate;
     }
 
-    public long getOrganizer() {
+    public Long getOrganizer() {
         return organizer;
     }
 
