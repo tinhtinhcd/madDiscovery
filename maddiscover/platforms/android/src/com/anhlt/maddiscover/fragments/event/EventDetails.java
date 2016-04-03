@@ -3,8 +3,11 @@ package com.anhlt.maddiscover.fragments.event;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,28 +18,39 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.R;
-import com.anhlt.maddiscover.adapter.ImageListAdapter;
+import com.anhlt.maddiscover.adapter.image.ImageListAdapter;
 import com.anhlt.maddiscover.adapter.ReportListAdapter;
+import com.anhlt.maddiscover.entities.EventImage;
 import com.anhlt.maddiscover.entities.Report;
 import com.anhlt.maddiscover.form.EventForm;
 import com.anhlt.maddiscover.fragments.BaseFragment;
 import com.anhlt.maddiscover.services.BaseService;
+import com.anhlt.maddiscover.services.EventImagesService;
 import com.anhlt.maddiscover.services.EventService;
 import com.anhlt.maddiscover.services.ReportService;
-import com.anhlt.maddiscover.utils.ExpandableHeightGridView;
+import com.anhlt.maddiscover.utils.ExpandableGridView;
+import com.squareup.picasso.Picasso;
 
 import android.view.View.MeasureSpec;
 import android.widget.AbsListView.LayoutParams;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -52,23 +66,10 @@ public class EventDetails extends BaseFragment{
     ReportService reportService;
     ReportListAdapter adapter;
     ListView list;
+    ExpandableGridView gridView;
+    EventImagesService eventImagesService;
 
-    public static String[] eatFoodyImages = {
-            "http://i.imgur.com/rFLNqWI.jpg",
-            "http://i.imgur.com/C9pBVt7.jpg",
-            "http://i.imgur.com/rT5vXE1.jpg",
-            "http://i.imgur.com/aIy5R2k.jpg",
-            "http://i.imgur.com/MoJs9pT.jpg",
-            "http://i.imgur.com/S963yEM.jpg",
-            "http://i.imgur.com/rLR2cyc.jpg",
-            "http://i.imgur.com/SEPdUIx.jpg",
-            "http://i.imgur.com/aC9OjaM.jpg",
-            "http://i.imgur.com/76Jfv9b.jpg",
-            "http://i.imgur.com/fUX7EIB.jpg",
-            "http://i.imgur.com/syELajx.jpg",
-            "http://i.imgur.com/COzBnru.jpg",
-            "http://i.imgur.com/Z3QjilA.jpg",
-    };
+    public static String[] eatFoodyImages = {};
 
     public static EventDetails getInstance(){
         return new EventDetails();
@@ -87,6 +88,7 @@ public class EventDetails extends BaseFragment{
         eventService = new EventService(context);
         reportService = new ReportService(context);
         adapter = new ReportListAdapter(context,reportService.getReports(eventId));
+        eventImagesService = new EventImagesService(context);
         return inflater.inflate(R.layout.event_details, container, false);
     }
 
@@ -105,7 +107,10 @@ public class EventDetails extends BaseFragment{
             deleteEvent(eventId);
         }else if(item.getItemId() == R.id.report_detail){
             showDialogReport();
+        }else if(item.getItemId() == R.id.images){
+            selectImage();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,16 +145,8 @@ public class EventDetails extends BaseFragment{
             list.setAdapter(adapter);
             setListViewHeightBasedOnChildren(list);
         }
-
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView)getView().findViewById(R.id.event_image);
-
-        WindowManager wm = (WindowManager)getActivity().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        gridView.setNumColumns(size.x/100 -1);
-        gridView.setExpanded(true);
-        gridView.setAdapter(new ImageListAdapter(getActivity(), eatFoodyImages));
+        eatFoodyImages = loadImageData();
+        loadImage();
 
     }
 
@@ -161,7 +158,7 @@ public class EventDetails extends BaseFragment{
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     eventService.deleteEventId(eventId);
-                    baseService = new BaseService(getActivity().getFragmentManager(),context);
+                    baseService = new BaseService(getActivity().getFragmentManager(), context);
                     baseService.replaceFragment(new ListEvent());
                 }
             });
@@ -171,7 +168,7 @@ public class EventDetails extends BaseFragment{
                     dialog.cancel();
                 }
             });
-            builder.show();
+        builder.show();
     }
 
     private void showDialogReport(){
@@ -205,21 +202,23 @@ public class EventDetails extends BaseFragment{
                                        String reportValue = reportTxt.getText().toString();
                                        if (reportValue.length() == 0)
                                            valid.setText("Please enter report!");
-               else {
-                   Report report = new Report();
+                                       else {
+                                           Report report = new Report();
 
-                   report.setCreateDate(new Date());
-                   report.setDetail(reportValue);
-                   report.setEventId(eventId);
-                   report.setTitle("");
+                                           report.setCreateDate(new Date());
+                                           report.setDetail(reportValue);
+                                           report.setEventId(eventId);
+                                           report.setTitle("");
 
-                   reportService.create(report);
-                   adapter = new ReportListAdapter(context, reportService.getReports(eventId));
-                   adapter.notifyDataSetChanged();
-                   list.setAdapter(adapter);
-                   setListViewHeightBasedOnChildren(list);
-                   dialog.cancel();
-               }}}
+                                           reportService.create(report);
+                                           adapter = new ReportListAdapter(context, reportService.getReports(eventId));
+                                           adapter.notifyDataSetChanged();
+                                           list.setAdapter(adapter);
+                                           setListViewHeightBasedOnChildren(list);
+                                           dialog.cancel();
+                                       }
+                                   }
+                               }
         );
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -253,5 +252,102 @@ public class EventDetails extends BaseFragment{
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    private void loadImage(){
+
+        WindowManager wm = (WindowManager)getActivity().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        gridView = (ExpandableGridView)getView().findViewById(R.id.event_image);
+        gridView.setNumColumns(size.x/100 -1);
+        gridView.setExpanded(true);
+        gridView.setAdapter(new ImageListAdapter(getActivity(), eatFoodyImages));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(getActivity(), ImageActivity.class);
+//                intent.putExtra("position", position);
+//                startActivity(intent);
+
+                Dialog imageDialog = new Dialog(getActivity());
+                imageDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                imageDialog.setContentView(R.layout.image);
+
+                final ImageView image = (ImageView) imageDialog.findViewById(R.id.image_view);
+                Picasso.with(context).load(eatFoodyImages[position]).into(image);
+
+                imageDialog.show();
+            }
+        });
+    }
+
+    private void selectImage() {
+        final CharSequence[] items = { "Take Photo", "Choose from Library"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, Configuration.REQUEST_CAMERA);
+                } else if (items[item].equals("Choose from Library")) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                    intent.setAction(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(Intent.createChooser(intent, "Select File"), Configuration.SELECT_FILE);
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        }).setCancelable(true);
+        builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            String imageUrl = data.getData().toString();
+
+            if (requestCode == Configuration.REQUEST_CAMERA) {
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (requestCode == Configuration.SELECT_FILE) {
+
+            }
+            saveImage(eventId,imageUrl);
+            eatFoodyImages = loadImageData();
+            gridView.setAdapter(new ImageListAdapter(getActivity(), eatFoodyImages));
+        }
+    }
+
+    private void saveImage(Long eventId, String imageUrl){
+        EventImage image = new EventImage();
+        image.setFileName(imageUrl);
+        image.setEventId(eventId);
+        eventImagesService.create(image);
+    }
+
+    private String[] loadImageData(){
+        return eventImagesService.eventImage(eventId);
     }
 }

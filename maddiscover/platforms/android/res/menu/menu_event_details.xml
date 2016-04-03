@@ -19,4 +19,9 @@
         android:title="Add Report"
         android:drawable="@android:drawable/ic_menu_search"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/images"
+        android:orderInCategory="100"
+        android:title="Add Images"
+        app:showAsAction="never"/>
 </menu>

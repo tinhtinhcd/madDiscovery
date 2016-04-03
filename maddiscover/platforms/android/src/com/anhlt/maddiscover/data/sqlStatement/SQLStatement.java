@@ -1,8 +1,10 @@
 package com.anhlt.maddiscover.data.sqlStatement;
 
+import com.anhlt.maddiscover.data.tables.EventImages;
 import com.anhlt.maddiscover.data.tables.Events;
 import com.anhlt.maddiscover.data.tables.Organizers;
 import com.anhlt.maddiscover.data.tables.Venues;
+import com.anhlt.maddiscover.entities.EventImage;
 import com.anhlt.maddiscover.entities.Venue;
 
 /**
@@ -86,6 +88,21 @@ public class SQLStatement {
             builder.append(eventId);
             builder.append(" order by createDate Desc");
         }
+
+        return builder.toString();
+    }
+
+    public static String getEventImages(Long eventId){
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("SELECT ");
+        builder.append(EventImages.fileName);
+        builder.append(" FROM ");
+        builder.append(EventImages.TABLE_NAME);
+        builder.append(" WHERE ");
+        builder.append(EventImages.eventId);
+        builder.append(" = ");
+        builder.append(eventId);
 
         return builder.toString();
     }

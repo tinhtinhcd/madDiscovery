@@ -106,7 +106,7 @@ public class BaseService {
                 eventService.deleteEvent(fm,fragment);
                 return true;
             case R.id.edit_event:
-//                eventService.editEvent(fm,fragment);
+                eventService.editEventFromListEvent(fm,fragment);
                 return true;
             case R.id.search_venue:
                 venueService.searchVenue();

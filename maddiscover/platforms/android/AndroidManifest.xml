@@ -49,15 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragments.event.CreateEvent"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity android:name=".fragments.venue.CreateVenue"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity android:name=".fragments.organizer.CreateOrganizer"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
-import com.anhlt.maddiscover.repositories.OrganizerRepository;
+import com.anhlt.maddiscover.data.repositories.OrganizerRepository;
 
 /**
  * Created by anhlt on 2/26/16.

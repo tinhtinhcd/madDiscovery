@@ -13,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.entities.Report;
 import com.anhlt.maddiscover.entities.Venue;
@@ -65,7 +66,7 @@ public class ReportListAdapter extends BaseAdapter{
         }
 
         TextView date = (TextView) convertView.findViewById(R.id.report_date);
-        SimpleDateFormat format = new SimpleDateFormat("MMM-dd-yyyy hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat(Configuration.dateTimeFormat);
         date.setText(format.format(reports.get(position).getCreateDate()));
         TextView report = (TextView) convertView.findViewById(R.id.report_text);
         report.setText(reports.get(position).getDetail());

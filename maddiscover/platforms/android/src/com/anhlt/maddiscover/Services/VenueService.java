@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.anhlt.maddiscover.fragments.venue.CreateVenue;
 import com.anhlt.maddiscover.entities.Venue;
-import com.anhlt.maddiscover.repositories.VenueRepository;
+import com.anhlt.maddiscover.data.repositories.VenueRepository;
 
 import java.util.List;
 

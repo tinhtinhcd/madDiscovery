@@ -4,8 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.entities.Organizer;
 import com.anhlt.maddiscover.entities.Venue;
 import com.anhlt.maddiscover.form.EventForm;
@@ -15,15 +15,14 @@ import com.anhlt.maddiscover.entities.Event;
 import com.anhlt.maddiscover.fragments.event.EditEvent;
 import com.anhlt.maddiscover.fragments.event.EventDetails;
 import com.anhlt.maddiscover.fragments.event.ListEvent;
-import com.anhlt.maddiscover.repositories.EventRepository;
-import com.anhlt.maddiscover.repositories.OrganizerRepository;
-import com.anhlt.maddiscover.repositories.VenueRepository;
+import com.anhlt.maddiscover.data.repositories.EventRepository;
+import com.anhlt.maddiscover.data.repositories.OrganizerRepository;
+import com.anhlt.maddiscover.data.repositories.VenueRepository;
 
 import org.apache.cordova.LOG;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by anhlt on 2/19/16.
@@ -59,7 +58,7 @@ public class EventService {
 
         form.setEventName(event.getEventName());
         try {
-            SimpleDateFormat format = new SimpleDateFormat("MMM-dd-yyyy");
+            SimpleDateFormat format = new SimpleDateFormat(Configuration.dateFormat);
             form.setStartDate(format.format(event.getStartDate()));
         }catch (Exception ex){
             LOG.e("",ex.toString());
@@ -107,6 +106,18 @@ public class EventService {
 
         baseService = new BaseService(fm,context);
         baseService.replaceFragment(editEvent);
+    }
+
+    public void editEventFromListEvent(FragmentManager fm,Fragment lf){
+        ListEvent listEvent = (ListEvent)lf;
+        EventListAdapter list = (EventListAdapter)listEvent.getListAdapter();
+        if(list==null || list.checkedEvent ==null ||list.checkedEvent.size() == 0){
+            ApplicationService.showErrorDialog("ERROR", "Please select event to edit", lf.getActivity());
+        }else if(list.checkedEvent.size() >1){
+            ApplicationService.showErrorDialog("ERROR", "Cannot edit many event at the same time.", lf.getActivity());
+        }else{
+            editEvent(fm,context,list.checkedEvent.get(0));
+        }
     }
 
     public void deleteEvent(FragmentManager fm, Fragment lf){

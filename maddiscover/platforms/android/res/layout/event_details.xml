@@ -116,7 +116,7 @@
         android:text="Images:"
         android:id="@+id/txtImg" />
 
-    <com.anhlt.maddiscover.utils.ExpandableHeightGridView
+    <com.anhlt.maddiscover.utils.ExpandableGridView
         android:id="@+id/event_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

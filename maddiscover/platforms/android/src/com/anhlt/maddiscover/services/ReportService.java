@@ -3,7 +3,7 @@ package com.anhlt.maddiscover.services;
 import android.content.Context;
 
 import com.anhlt.maddiscover.entities.Report;
-import com.anhlt.maddiscover.repositories.ReportRepository;
+import com.anhlt.maddiscover.data.repositories.ReportRepository;
 
 import java.util.List;
 

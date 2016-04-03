@@ -7,6 +7,7 @@ import android.widget.DatePicker;
 import android.app.DialogFragment;
 import android.widget.TextView;
 
+import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.fragments.event.CreateEvent;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class DatePickerFragment extends DialogFragment
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, day);
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(Configuration.dateFormat);
         String formattedDate = sdf.format(c.getTime());
         textView.setText(formattedDate);
     }

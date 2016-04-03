@@ -15,6 +15,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.anhlt.maddiscover.Configuration;
 import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.entities.Event;
 
@@ -74,7 +75,7 @@ public class EventListAdapter extends BaseAdapter implements Filterable, Compoun
         eventItem.setOnCheckedChangeListener(this);
 
         startDate = (TextView) convertView.findViewById(R.id.list_event_start_date);
-        SimpleDateFormat format = new SimpleDateFormat("MMM-dd-yyyy");
+        SimpleDateFormat format = new SimpleDateFormat(Configuration.dateFormat);
         String date = String.valueOf(events.get(position).getStartDate());
         startDate.setText(!date.equals("null")?format.format(events.get(position).getStartDate()):"N/A");
 
@@ -150,6 +151,14 @@ public class EventListAdapter extends BaseAdapter implements Filterable, Compoun
         events.removeAll(removeEvent);
         fixEventList.removeAll(removeEvent);
         notifyDataSetChanged();
+    }
+
+    public List<Event> getFixEventList() {
+        return fixEventList;
+    }
+
+    public void setFixEventList(List<Event> fixEventList) {
+        this.fixEventList = fixEventList;
     }
 }
 

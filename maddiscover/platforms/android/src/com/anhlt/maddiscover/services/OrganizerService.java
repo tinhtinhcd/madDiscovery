@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
 import com.anhlt.maddiscover.entities.Organizer;
-import com.anhlt.maddiscover.repositories.OrganizerRepository;
+import com.anhlt.maddiscover.data.repositories.OrganizerRepository;
 
 import java.util.List;
 

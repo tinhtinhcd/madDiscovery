@@ -8,6 +8,7 @@ public class EventImage {
     private Long id;
     private String url;
     private String fileName;
+    private Long eventId;
 
     public long getId() {return id;}
 
@@ -26,4 +27,16 @@ public class EventImage {
     public String getFileName() {return fileName;}
 
     public void setFileName(String fileName) {this.fileName = fileName;}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
 }
