@@ -1,6 +1,7 @@
 package com.anhlt.maddiscover.fragments.organizer;
 
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anhlt.maddiscover.R;
@@ -20,10 +22,17 @@ import com.anhlt.maddiscover.services.OrganizerService;
 /**
  * Created by anhlt on 2/19/16.
  */
-public class ListOrganizer extends ListFragment implements AdapterView.OnItemClickListener {
+public class ListOrganizer extends ListFragment{
 
     OrganizerService organizerService;
     OrganizerListAdapter adapter;
+    Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +54,9 @@ public class ListOrganizer extends ListFragment implements AdapterView.OnItemCli
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        long orgId = adapter.organizers.get((Integer)v.findViewById(R.id.organizer_item).getTag()).getId();
+        organizerService.viewOrg(getFragmentManager(), context, orgId);
     }
 
     @Override

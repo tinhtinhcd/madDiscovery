@@ -73,7 +73,7 @@ public class BasicRepository {
                     values.put(field.getName(), value.toString());
             }
         }catch (Exception e){
-//            System.console().printf("Error on save: " +e.getMessage());
+            Log.e("error:" , e.getMessage());
         }
 
         databaseHelper.insert(tableName, values);

@@ -19,8 +19,6 @@ import com.anhlt.maddiscover.services.VenueService;
 
 public class CreateVenue extends BaseFragment {
 
-    public static CreateVenue createVenue;
-
     Context context;
     BaseService baseService;
     VenueService venueService;
@@ -29,9 +27,7 @@ public class CreateVenue extends BaseFragment {
     EditText address;
 
     public static CreateVenue getInstance(){
-        if(createVenue == null)
-            createVenue = new CreateVenue();
-        return createVenue;
+        return new CreateVenue();
     }
 
     @Override

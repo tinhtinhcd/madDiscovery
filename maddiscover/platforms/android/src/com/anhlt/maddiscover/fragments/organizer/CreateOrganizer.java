@@ -19,8 +19,6 @@ import com.anhlt.maddiscover.services.OrganizerService;
 
 public class CreateOrganizer extends BaseFragment {
 
-    public static CreateOrganizer createOrganizer;
-
     Context context;
     BaseService baseService;
     OrganizerService organizerService;
@@ -32,9 +30,7 @@ public class CreateOrganizer extends BaseFragment {
     EditText about;
 
     public static CreateOrganizer getInstance(){
-        if(createOrganizer == null)
-            createOrganizer = new CreateOrganizer();
-        return createOrganizer;
+        return new CreateOrganizer();
     }
 
     @Override
@@ -77,13 +73,13 @@ public class CreateOrganizer extends BaseFragment {
 
     private boolean createOrganizer(){
 
-        Organizer organizer = new Organizer();
         getFormUI();
 
         if (name.getText().toString().isEmpty()){
             showErrorDialog("Error", "Please enter name of organizer");
             return false;
         }else{
+            Organizer organizer = new Organizer();
             mapDataOrganizer(organizer);
             if(validOrganizer(organizer)){
                 organizerService.saveNewOrganizer(organizer);

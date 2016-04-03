@@ -2,10 +2,13 @@ package com.anhlt.maddiscover.services;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 
+import com.anhlt.maddiscover.fragments.event.EventDetails;
 import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
 import com.anhlt.maddiscover.entities.Organizer;
 import com.anhlt.maddiscover.data.repositories.OrganizerRepository;
+import com.anhlt.maddiscover.fragments.organizer.OrganizerDetails;
 
 import java.util.List;
 
@@ -21,6 +24,17 @@ public class OrganizerService {
     public OrganizerService(Context context) {
         this.context = context;
         organizerRepository = new OrganizerRepository(context);
+    }
+
+    public void viewOrg(FragmentManager fm, Context context,long orgId){
+
+        OrganizerDetails details = new OrganizerDetails();
+        Bundle args = new Bundle();
+        args.putLong("orgId", orgId);
+        details.setArguments(args);
+
+        baseService = new BaseService(fm,context);
+        baseService.replaceFragment(details);
     }
 
     public Organizer findById(long id){

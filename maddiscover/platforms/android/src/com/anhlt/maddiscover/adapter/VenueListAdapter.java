@@ -26,7 +26,7 @@ import java.util.List;
 public class VenueListAdapter extends BaseAdapter implements Filterable, CompoundButton.OnCheckedChangeListener {
 
     Context context;
-    List<Venue> venues;
+    public  static  List<Venue> venues;
     List<Venue> fixVenues;
     SparseBooleanArray mCheckStates;
 
@@ -66,6 +66,7 @@ public class VenueListAdapter extends BaseAdapter implements Filterable, Compoun
 
         CheckBox venueItem = (CheckBox) convertView.findViewById(R.id.venue_item);
         venueItem.setText(venues.get(position).getName());
+        venueItem.setTag(position);
         return convertView;
 
     }

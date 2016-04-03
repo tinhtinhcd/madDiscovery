@@ -6,6 +6,7 @@
         android:layout_height="wrap_content"
         android:text="New CheckBox"
         android:id="@+id/organizer_item"
+        android:focusable="false"
         android:layout_gravity="center_vertical"
         android:checked="false" />
 </LinearLayout>

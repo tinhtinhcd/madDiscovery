@@ -2,10 +2,13 @@ package com.anhlt.maddiscover.services;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 
+import com.anhlt.maddiscover.fragments.organizer.OrganizerDetails;
 import com.anhlt.maddiscover.fragments.venue.CreateVenue;
 import com.anhlt.maddiscover.entities.Venue;
 import com.anhlt.maddiscover.data.repositories.VenueRepository;
+import com.anhlt.maddiscover.fragments.venue.VenueDetails;
 
 import java.util.List;
 
@@ -21,6 +24,17 @@ public class VenueService {
     public VenueService(Context context) {
         this.context = context;
         venueRepository = new VenueRepository(context);
+    }
+
+    public void viewDetails(FragmentManager fm, Context context,long venueId){
+
+        VenueDetails details = new VenueDetails();
+        Bundle args = new Bundle();
+        args.putLong("venueId", venueId);
+        details.setArguments(args);
+
+        baseService = new BaseService(fm,context);
+        baseService.replaceFragment(details);
     }
 
     public Venue findById(long id){

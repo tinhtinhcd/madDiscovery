@@ -1,6 +1,7 @@
 package com.anhlt.maddiscover.fragments.venue;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anhlt.maddiscover.R;
@@ -22,10 +24,18 @@ import com.anhlt.maddiscover.services.VenueService;
 /**
  * Created by anhlt on 2/18/16.
  */
-public class ListVenue extends ListFragment implements AdapterView.OnItemClickListener {
+public class ListVenue extends ListFragment{
 
     VenueService venueService;
     VenueListAdapter adapter;
+    Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +56,9 @@ public class ListVenue extends ListFragment implements AdapterView.OnItemClickLi
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        long orgId = adapter.venues.get((Integer) v.findViewById(R.id.venue_item).getTag()).getId();
+        venueService.viewDetails(getFragmentManager(), context, orgId);
     }
 
     @Override

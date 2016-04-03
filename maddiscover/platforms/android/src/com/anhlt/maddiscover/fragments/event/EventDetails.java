@@ -151,23 +151,23 @@ public class EventDetails extends BaseFragment{
     }
 
     private void deleteEvent(final Long eventId){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
-            builder.setTitle("Delete Event");
-            builder.setMessage("Do you want to delete event: " + eventName.getText());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    eventService.deleteEventId(eventId);
-                    baseService = new BaseService(getActivity().getFragmentManager(), context);
-                    baseService.replaceFragment(new ListEvent());
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
+        builder.setTitle("Delete Event");
+        builder.setMessage("Do you want to delete event: " + eventName.getText());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                eventService.deleteEventId(eventId);
+                baseService = new BaseService(getActivity().getFragmentManager(), context);
+                baseService.replaceFragment(new ListEvent());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         builder.show();
     }
 
