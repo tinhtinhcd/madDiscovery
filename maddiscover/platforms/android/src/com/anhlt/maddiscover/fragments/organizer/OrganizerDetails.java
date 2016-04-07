@@ -1,6 +1,7 @@
 package com.anhlt.maddiscover.fragments.organizer;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 import com.anhlt.maddiscover.R;
 import com.anhlt.maddiscover.entities.Organizer;
 import com.anhlt.maddiscover.fragments.BaseFragment;
+import com.anhlt.maddiscover.services.BaseService;
 import com.anhlt.maddiscover.services.OrganizerService;
+import android.app.AlertDialog;
 
 /**
  * Created by anhlt on 3/13/16.
@@ -25,6 +28,7 @@ public class OrganizerDetails extends BaseFragment {
     TextView name,tele,email,address,about;
     OrganizerService organizerService;
     Context context;
+    BaseService baseService;
 
     @Override
     public void onStart() {
@@ -54,8 +58,8 @@ public class OrganizerDetails extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()  == R.id.edit_org_detail){
-
+        if(item.getItemId() == R.id.edit_org_detail){
+            organizerService.editOrganizer(getFragmentManager(),context, orgId);
         }else if (item.getItemId()  == R.id.delete_org_detail){
             deleteOrg();
         }
@@ -65,31 +69,34 @@ public class OrganizerDetails extends BaseFragment {
     private void deleteOrg(){
         if(canDelete())
             delete();
+        else{
+            showErrorDialog("Cannot Delete","This organizer is already in event, cannot delete.");
+        }
     }
 
     private boolean canDelete(){
-        return false;
+        return organizerService.canDelete(orgId);
     }
 
     private void delete(){
-//        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
-//        builder.setTitle("Delete Event");
-//        builder.setMessage("Do you want to delete event: " + eventName.getText());
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                eventService.deleteEventId(eventId);
-//                baseService = new BaseService(getActivity().getFragmentManager(), context);
-//                baseService.replaceFragment(new ListEvent());
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//        builder.show();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle);
+        builder.setTitle("Delete Organizer");
+        builder.setMessage("Do you want to delete organizer: " + name.getText());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                organizerService.deleteOrganizer();
+                baseService = new BaseService(getActivity().getFragmentManager(), context);
+                baseService.replaceFragment(new ListOrganizer());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     private void init(){
@@ -112,11 +119,12 @@ public class OrganizerDetails extends BaseFragment {
         tele.setText(org.getMobile());
         email.setText(org.getEmail());
         address.setText(org.getAddress());
-        about.setText(org.getAddress());
+        about.setText(org.getAbout());
     }
 
     private void initService(){
         context = getActivity().getApplicationContext();
         organizerService = new OrganizerService(context);
     }
+
 }

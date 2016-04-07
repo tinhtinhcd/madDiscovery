@@ -127,7 +127,7 @@ public class BaseService {
                 organizerService.createOrganizerForm(fm, context);
                 return true;
             case R.id.edit_organizer:
-                organizerService.editOrganizer();
+//                organizerService.editOrganizer();
                 return true;
             case R.id.delete_organizer:
                 organizerService.deleteOrganizer();

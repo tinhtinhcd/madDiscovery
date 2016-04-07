@@ -24,13 +24,13 @@ public class OrganizerForm {
         context.startActivity(intent);
     }
 
-    public void editEvent(){
+    public void editOrginazer(){
     }
 
-    public void deleteEvent(){
+    public void deleteOrginazer(){
     }
 
-    public void searchEvent(){
+    public void searchOrginazer(){
     }
 
 }

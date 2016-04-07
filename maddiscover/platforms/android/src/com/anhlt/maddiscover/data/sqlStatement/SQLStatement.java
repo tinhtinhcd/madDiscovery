@@ -106,4 +106,13 @@ public class SQLStatement {
 
         return builder.toString();
     }
+
+    public static String checkOrganizerInEvent(Long orgId){
+        StringBuilder builder = new StringBuilder();
+        builder.append("SELECT count(*) From ");
+        builder.append(Events.TABLE_NAME);
+        builder.append(" WHERE organizer =");
+        builder.append(orgId);
+        return builder.toString();
+    }
 }

@@ -4,10 +4,12 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.anhlt.maddiscover.fragments.event.EditEvent;
 import com.anhlt.maddiscover.fragments.event.EventDetails;
 import com.anhlt.maddiscover.fragments.organizer.CreateOrganizer;
 import com.anhlt.maddiscover.entities.Organizer;
 import com.anhlt.maddiscover.data.repositories.OrganizerRepository;
+import com.anhlt.maddiscover.fragments.organizer.EditOrginazer;
 import com.anhlt.maddiscover.fragments.organizer.OrganizerDetails;
 
 import java.util.List;
@@ -58,10 +60,8 @@ public class OrganizerService {
         organizerRepository.create(organizer);
     }
 
-    public void editOrganizer(){
-    }
-
     public void deleteOrganizer(){
+
     }
 
     public void searchOrganizer(){
@@ -69,5 +69,27 @@ public class OrganizerService {
 
     public List<String> listOrganizerName(){
         return organizerRepository.getListOrganizerName();
+    }
+
+    public boolean canDelete(Long orgId){
+        return organizerRepository.canDeleteOrganizer(orgId);
+    }
+
+    public void editOrganizer(FragmentManager fm, Context context,long orgId){
+        EditOrginazer editEvent = new EditOrginazer();
+        Bundle args = new Bundle();
+        args.putLong("orgId", orgId);
+        editEvent.setArguments(args);
+
+        baseService = new BaseService(fm,context);
+        baseService.replaceFragment(editEvent);
+    }
+
+    public boolean validEdit(String name) {
+        return organizerRepository.findByName(name)!=null;
+    }
+
+    public void updateOrg(Organizer organizer){
+        organizerRepository.update(organizer);
     }
 }

@@ -85,4 +85,12 @@ public class OrganizerRepository extends BasicRepository{
         }
         return orgNames;
     }
+
+    public boolean canDeleteOrganizer(Long orgId){
+        Cursor cursor = databaseHelper.select(SQLStatement.checkOrganizerInEvent(orgId),null,null);
+        if (cursor.moveToFirst()){
+            return cursor.getInt(0)<=0;
+        }
+        return true;
+    }
 }

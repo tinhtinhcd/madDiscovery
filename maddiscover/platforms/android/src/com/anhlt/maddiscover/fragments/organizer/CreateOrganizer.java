@@ -91,7 +91,7 @@ public class CreateOrganizer extends BaseFragment {
         }
     }
 
-    private void mapDataOrganizer(Organizer organizer){
+    protected void mapDataOrganizer(Organizer organizer){
         organizer.setName(name.getText().toString());
         if(!mobile.getText().toString().isEmpty())
             organizer.setMobile(mobile.getText().toString());
@@ -103,7 +103,7 @@ public class CreateOrganizer extends BaseFragment {
             organizer.setAbout(about.getText().toString());
     }
 
-    private void getFormUI(){
+    protected void getFormUI(){
         if(name == null)
             name =  (EditText)getView().findViewById(R.id.organizer_name);
         if(mobile == null)
@@ -116,7 +116,7 @@ public class CreateOrganizer extends BaseFragment {
             about =  (EditText)getView().findViewById(R.id.about);
     }
 
-    private boolean validOrganizer(Organizer organizer){
+    protected boolean validOrganizer(Organizer organizer){
         Organizer organizer1 = organizerService.findByName(organizer.getName());
         if (organizer1.getName() == null)
             return true;
